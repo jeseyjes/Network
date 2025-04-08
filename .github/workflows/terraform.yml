@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform VPC Deployment'
 
 on:
   push:
@@ -6,40 +6,54 @@ on:
   pull_request:
 
 permissions:
-  id-token: write   # This is required for OIDC with AWS
-  contents: read    # This is required for actions/checkout
+  id-token: write   # Required for OIDC
+  contents: read    # Required for checkout
+
+env:
+  AWS_REGION: 'eu-west-1'  # Set your preferred region
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Deploy VPC'
     runs-on: ubuntu-latest
+    environment: production  # Optional but recommended
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Configure AWS credentials from Terraform Cloud
-        uses: hashicorp/setup-terraform@v2
+      # Configure AWS credentials via OIDC
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: github-actions-terraform
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
 
+      # Format check
       - name: Terraform Format
-        id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -check -recursive
 
+      # Initialize
       - name: Terraform Init
-        id: init
         run: terraform init
 
+      # Validate
       - name: Terraform Validate
-        id: validate
         run: terraform validate -no-color
 
+      # Plan
       - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
         continue-on-error: true
 
+      # Apply
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
