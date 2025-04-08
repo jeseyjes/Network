@@ -1,6 +1,15 @@
-# Public Route Tables (one per AZ)
+# Default Main Route Table (1)
+resource "aws_default_route_table" "main" {
+  default_route_table_id = aws_vpc.main.default_route_table_id
+
+  tags = {
+    Name = "main-default-rt"
+  }
+}
+
+# Public Route Tables (2)
 resource "aws_route_table" "public" {
-  count  = length(aws_subnet.public) # Creates 2 route tables
+  count  = length(aws_subnet.public)
   vpc_id = aws_vpc.main.id
 
   route {
@@ -13,9 +22,9 @@ resource "aws_route_table" "public" {
   }
 }
 
-# Private Route Tables (one per AZ)
+# Private Route Tables (2)
 resource "aws_route_table" "private" {
-  count  = length(aws_subnet.private) # Creates 2 route tables
+  count  = length(aws_subnet.private)
   vpc_id = aws_vpc.main.id
 
   tags = {
@@ -23,7 +32,7 @@ resource "aws_route_table" "private" {
   }
 }
 
-# Route Table Associations
+# Associations
 resource "aws_route_table_association" "public" {
   count          = length(aws_subnet.public)
   subnet_id      = aws_subnet.public[count.index].id

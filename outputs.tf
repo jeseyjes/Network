@@ -17,3 +17,11 @@ output "internet_gateway_id" {
   description = "ID of the Internet Gateway"
   value       = aws_internet_gateway.igw.id
 }
+
+output "route_tables" {
+  value = concat(
+    [aws_default_route_table.main],
+    aws_route_table.public,
+    aws_route_table.private
+  )
+}
