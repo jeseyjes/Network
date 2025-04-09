@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "eu-west-1"
+  default     = "eu-west-2"
 }
 
 variable "vpc_cidr" {
@@ -25,5 +25,5 @@ variable "private_subnet_cidrs" {
 variable "availability_zones" {
   description = "Availability zones"
   type        = list(string)
-  default     = ["eu-west-1a", "eu-west-1b"] # Using 2 zones for free tier
+  default     = ["eu-west-2a", "eu-west-2b"] # Using 2 zones for free tier
 }
