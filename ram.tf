@@ -7,22 +7,22 @@ resource "aws_ram_organization_settings" "enable_sharing" {
 data "aws_vpc" "target_vpc" {
   filter {
     name   = "tag:Name"
-    values = ["my-vpc"]  # Your VPC's name tag
+    values = ["my-vpc"] # Your VPC's name tag
   }
 }
 
 # Share ALL subnets in the VPC with Sandbox OU
 resource "aws_ram_resource_share" "sandbox_subnet_share" {
   name                      = "sandbox-subnet-share"
-  allow_external_principals = false  # Restrict to AWS Org
-  principals                = [var.sandbox_ou_arn]  # Sandbox OU ARN
+  allow_external_principals = false                # Restrict to AWS Org
+  principals                = [var.sandbox_ou_arn] # Sandbox OU ARN
 }
 
 # Fetch all subnets in the VPC (dynamically using the VPC name)
 data "aws_subnets" "shared_subnets" {
   filter {
     name   = "vpc-id"
-    values = [data.aws_vpc.target_vpc.id]  # Uses VPC ID fetched by name
+    values = [data.aws_vpc.target_vpc.id] # Uses VPC ID fetched by name
   }
 }
 
