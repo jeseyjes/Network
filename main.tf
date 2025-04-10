@@ -1,8 +1,8 @@
-terraform {
-  cloud {
-    organization = "Techitblog"
-    workspaces {
-      name = "network"
-    }
-  }
-}
+#terraform {
+  #cloud {
+    #organization = "Techitblog"
+    #workspaces {
+      #name = "network"
+    #}
+  #}
+#}
