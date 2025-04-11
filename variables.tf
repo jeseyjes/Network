@@ -1,8 +1,14 @@
-variable "region" {
+variable "aws_region" {
   description = "AWS region"
   type        = string
   default     = "eu-west-2"
 }
+
+variable "aws_role_arn" {
+  description = "IAM Role ARN to assume via OIDC"
+  type        = string
+}
+
 
 variable "vpc_cidr" {
   description = "CIDR block for VPC"
