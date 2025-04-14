@@ -18,9 +18,9 @@ terraform {
 }
 
 #provider "aws" {
-  #region     = var.aws_region
+#region     = var.aws_region
 
-  #assume_role {
-    #role_arn = var.aws_role_arn
-  #}
+#assume_role {
+#role_arn = var.aws_role_arn
+#}
 #}
