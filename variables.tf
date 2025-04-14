@@ -34,19 +34,3 @@ variable "availability_zones" {
   default     = ["eu-west-2a", "eu-west-2b"]
 }
 
-# New variables for RAM sharing
-variable "management_account_id" {
-  description = "AWS Account ID of the management account"
-  type        = string
-}
-
-variable "sandbox_ou_arn" {
-  description = "arn:aws:organizations::640168434456:ou/o-eggplpncq5/ou-ocmf-90vn9dk3"
-  type        = string
-}
-
-variable "enable_ram_sharing" {
-  description = "Whether to enable RAM sharing with AWS Organizations"
-  type        = bool
-  default     = true
-}
