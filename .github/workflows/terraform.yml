@@ -11,7 +11,7 @@ permissions:
 
 env:
   AWS_REGION: 'eu-west-1'
-  TERRAFORM_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+  TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
 
 #env:
  # AWS_REGION: 'eu-west-1'  # Set your preferred region
