@@ -8,7 +8,7 @@ terraform {
     }
   }
 
-  backend {
+  backend "remote" {
     organization = "Techitblog"
 
     workspaces {
