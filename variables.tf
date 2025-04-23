@@ -40,3 +40,12 @@ variable "ram_name" {
 variable "ou_arn" {
   description = "ARN for Sandbox OU"
 }
+
+locals {
+  tags = {
+    Environment = "Sandbox"
+    Owner       = "NetworkTeam"
+    Terraform   = "true"
+    Project     = "NetworkSharing"
+  }
+}
