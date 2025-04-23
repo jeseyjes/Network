@@ -34,3 +34,9 @@ variable "availability_zones" {
   default     = ["eu-west-2a", "eu-west-2b"]
 }
 
+variable "ram_name" {
+  description = "Name of the RAM Share"
+}
+variable "ou_arn" {
+  description = "ARN for Sandbox OU"
+}
