@@ -1,7 +1,7 @@
 # Creation
 resource "aws_ram_resource_share" "subnet_share" {
   name                      = var.ram_name
-  allow_external_principals = false  # Restrict sharing to AWS Organization only
+  allow_external_principals = false # Restrict sharing to AWS Organization only
   tags                      = local.tags
 }
 
@@ -21,6 +21,6 @@ resource "aws_ram_resource_association" "public_subnets" {
 
 # Shares resources with the Sandbox OU
 resource "aws_ram_principal_association" "sandbox_ou" {
-  principal          = var.ou_arn  # e.g., "arn:aws:organizations::123456789012:ou/o-abc123/ou-def456"
+  principal          = var.ou_arn # e.g., "arn:aws:organizations::123456789012:ou/o-abc123/ou-def456"
   resource_share_arn = aws_ram_resource_share.subnet_share.arn
 }
